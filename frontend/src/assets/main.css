@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-gray-900;
+  }
+
+  body,
+  html,
+  #app {
+    @apply h-full w-full;
+  }
+}
+
+@layer components {
+  .menu-item {
+    @apply flex gap-x-3 rounded-md px-3 py-2 text-md font-semibold transition-colors;
+  }
+  .menu-item:not(.current) {
+    @apply text-gray-700 hover:bg-gray-50 hover:text-gray-900;
+  }
+  .menu-item.current {
+    @apply bg-gray-50 text-gray-900;
+  }
+  .menu-item svg {
+    @apply h-6 w-6 shrink-0 text-gray-500;
+  }
+}
