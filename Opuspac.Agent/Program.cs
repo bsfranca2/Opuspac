@@ -8,7 +8,6 @@ var settings = new Settings(configuration);
 
 var rootCommand = new RootCommand("Este programa conecta-se ao servidor e imprime documentos na impressora local a partir de instruções remotas.");
 
-
 var connectToServerCommand = new Command("connect", "Estabelece conexão com o servidor.");
 connectToServerCommand.SetHandler(async () =>
 {

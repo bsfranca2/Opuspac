@@ -13,7 +13,7 @@ builder.Services.AddEfRepositories();
 builder.Services.AddControllers();
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", policyBuilder =>
 {
-    // TODO: Noa deixar valor fixo
+    // Fiz a configuracao em producao dos cors no API Gateway, por isso esta fixo
     policyBuilder.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader();
 }));
 
@@ -23,6 +23,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 if (app.Environment.IsDevelopment())
 {
