@@ -27,7 +27,7 @@ public class PrintJobController : Controller
     [HttpPost]
     public async Task<IResult> Post()
     {
-        var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+        var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString().Replace("::ffff:", "");
         if (ipAddress == null)
         {
             throw new BadHttpRequestException("Required request ip address");

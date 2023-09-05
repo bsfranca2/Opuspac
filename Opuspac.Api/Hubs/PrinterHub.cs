@@ -26,7 +26,7 @@ public class PrinterHub : Hub
             throw new HubException("Conexão mal formatada.");
         }
 
-        var clientIpAddress = httpContext.Connection.RemoteIpAddress?.ToString();
+        var clientIpAddress = httpContext.Connection.RemoteIpAddress?.ToString().Replace("::ffff:", "");
         if (clientIpAddress == null)
         {
             throw new HubException("Necessário uma conexão com o IP fornecido.");
@@ -57,7 +57,7 @@ public class PrinterHub : Hub
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        var clientIpAddress = Context.GetHttpContext()?.Connection.RemoteIpAddress?.ToString();
+        var clientIpAddress = Context.GetHttpContext()?.Connection.RemoteIpAddress?.ToString().Replace("::ffff:", "");
         if (clientIpAddress != null)
         {
             var printerAgent = await _printerAgentRepository.GetByIpAsync(clientIpAddress);
