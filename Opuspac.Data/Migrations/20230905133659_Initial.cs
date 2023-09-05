@@ -15,9 +15,9 @@ namespace Opuspac.Data.Migrations
                 name: "Patient",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Bed = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Bed = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,13 +28,13 @@ namespace Opuspac.Data.Migrations
                 name: "PrinterAgent",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Ip = table.Column<string>(type: "TEXT", nullable: false),
-                    PrinterModel = table.Column<string>(type: "TEXT", nullable: false),
-                    ClientId = table.Column<string>(type: "TEXT", nullable: true),
-                    IsConnected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LastActiveConnectionDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Ip = table.Column<string>(type: "text", nullable: false),
+                    PrinterModel = table.Column<string>(type: "text", nullable: false),
+                    ClientId = table.Column<string>(type: "text", nullable: true),
+                    IsConnected = table.Column<bool>(type: "boolean", nullable: false),
+                    LastActiveConnectionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,10 +45,10 @@ namespace Opuspac.Data.Migrations
                 name: "PrintJob",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PrescriptionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Ip = table.Column<string>(type: "TEXT", nullable: false),
-                    Status = table.Column<byte>(type: "INTEGER", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PrescriptionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Ip = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<byte>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
