@@ -50,6 +50,8 @@ public class PrinterHub : Hub
         printerAgent.Connect(Context.ConnectionId);
         await _printerAgentRepository.UpsertAsync(printerAgent);
 
+        // TODO: Buscar por tarefas pendentes para esse ip
+
         await base.OnConnectedAsync();
     }
 

@@ -6,17 +6,23 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Opuspac.Api", "Opuspac.Api\Opuspac.Api.csproj", "{39EA5A81-BC9A-4F5B-AF9F-767321DA4209}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Opuspac.Agent", "Opuspac.Agent\Opuspac.Agent.csproj", "{127D6D14-71BA-4D25-A259-C5544EE7CBA4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4E10C08B-A91B-4AE3-B139-10AB1805316F} = {4E10C08B-A91B-4AE3-B139-10AB1805316F}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{996B7112-7E78-43E9-B36A-1DFC4E375DDC}"
 	ProjectSection(SolutionItems) = preProject
+		example-print-data.json = example-print-data.json
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Frontend", "frontend\frontend.esproj", "{4A9DD67E-3B36-41CD-B959-9E99859B03B4}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "frontend", "frontend\frontend.esproj", "{4A9DD67E-3B36-41CD-B959-9E99859B03B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opuspac.Core", "Opuspac.Core\Opuspac.Core.csproj", "{BE1D1DDE-0F4E-4233-A92F-B79688A0B231}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Opuspac.Core", "Opuspac.Core\Opuspac.Core.csproj", "{BE1D1DDE-0F4E-4233-A92F-B79688A0B231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opuspac.Data", "Opuspac.Data\Opuspac.Data.csproj", "{354FCC58-0844-48C8-9029-6D546F572F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Opuspac.Data", "Opuspac.Data\Opuspac.Data.csproj", "{354FCC58-0844-48C8-9029-6D546F572F3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opuspac.Printer", "Opuspac.Printer\Opuspac.Printer.csproj", "{4E10C08B-A91B-4AE3-B139-10AB1805316F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,8 +52,15 @@ Global
 		{354FCC58-0844-48C8-9029-6D546F572F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{354FCC58-0844-48C8-9029-6D546F572F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{354FCC58-0844-48C8-9029-6D546F572F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E10C08B-A91B-4AE3-B139-10AB1805316F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E10C08B-A91B-4AE3-B139-10AB1805316F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E10C08B-A91B-4AE3-B139-10AB1805316F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E10C08B-A91B-4AE3-B139-10AB1805316F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {946EDFC3-1867-495A-B0B3-2881021DCE13}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,20 @@
+{
+  "printJobId": "19922a90-0041-4b11-bb36-21c9d8d679a2",
+  "prescriptionCode": "241",
+  "patientName": "Paciente Teste",
+  "patientBed": "Espera",
+  "attendantId": "2450522",
+  "time": "12:00",
+  "medicines": [
+    {
+      "quantity": 1,
+      "name": "ACETILCISTEINA AMP 100MG",
+      "administrationInstructions": "VIA ORAL"
+    },
+    {
+      "quantity": 1,
+      "name": "FUROSEMIDA AMP 10MG",
+      "administrationInstructions": "INTRAVENOSO"
+    }
+  ]
+}

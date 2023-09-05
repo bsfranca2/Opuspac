@@ -36,7 +36,7 @@ public class PrintJobController : Controller
         var printJob = new PrintJob
         {
             Ip = ipAddress,
-            PrescriptionId = Guid.NewGuid(), // TODO: Tem que vim do body
+            PrescriptionId = Guid.NewGuid(), // TODO: Tem que vim do req body
             Status = Core.Enums.PrintJobStatus.Waiting
         };
         await _printJobRepository.CreateAsync(printJob);
