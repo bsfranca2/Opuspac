@@ -42,7 +42,6 @@ function formatDate(dateStr: string | null) {
     <h2 class="text-display-sm font-semibold">Impressoras</h2>
   </div>
   <div>
-    <!-- {{ JSON.stringify(metrics, null, 2) }} -->
     <span v-if="metricsIsLoading">Carregando métricas...</span>
     <PrinterMetrics v-else-if="!!metrics" :metrics="metrics" />
     <div class="mb-6 mt-8">

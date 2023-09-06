@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
-// import IconHome from "~icons/op/home";
 import IconPrescription from "~icons/op/prescription";
 import IconPrinter from "~icons/op/printer";
 import IconMenu from "~icons/op/menu";
 import IconX from "~icons/op/x-close";
 
 const navigation = [
-  // { name: "Início", href: "/", icon: IconHome },
   { name: "Prescrições", href: "/", icon: IconPrescription },
   { name: "Impressoras", href: "/printers", icon: IconPrinter },
 ];
@@ -86,23 +84,13 @@ const sidebarOpen = ref(false);
         <h1 class="ml-1 text-display-xs font-bold">Opuspac</h1>
       </div>
       <nav class="flex flex-1 flex-col">
-        <ul class="flex flex-1 flex-col">
-          <li>
-            <ul class="-mx-2 space-y-1">
-              <li v-for="item in navigation" :key="item.name">
-                <RouterLink :to="item.href" class="menu-item" exact-active-class="current">
-                  <component :is="item.icon" aria-hidden="true" />
-                  {{ item.name }}
-                </RouterLink>
-              </li>
-            </ul>
+        <ul class="-mx-2 space-y-1">
+          <li v-for="item in navigation" :key="item.name">
+            <RouterLink :to="item.href" class="menu-item" exact-active-class="current">
+              <component :is="item.icon" aria-hidden="true" />
+              {{ item.name }}
+            </RouterLink>
           </li>
-          <!-- <li class="-mx-2 mt-auto pb-8">
-            <a href="#" class="menu-item">
-              <IconHome aria-hidden="true" />
-              Sair
-            </a>
-          </li> -->
         </ul>
       </nav>
     </div>
@@ -114,13 +102,5 @@ const sidebarOpen = ref(false);
       <IconMenu class="h-6 w-6" aria-hidden="true" />
     </button>
     <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">Opuspac</div>
-    <!-- <a href="#">
-      <span class="sr-only">Seu perfil</span>
-      <img
-        class="h-8 w-8 rounded-full bg-gray-50"
-        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-        alt=""
-      />
-    </a> -->
   </div>
 </template>
