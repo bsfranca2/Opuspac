@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using Opuspac.Api.Hubs;
 using Opuspac.Api.Models.Request;
+using Opuspac.Api.Utilities;
 using Opuspac.Core.Repositories;
 using Opuspac.Core.Services;
 
@@ -28,7 +29,7 @@ public class PrintJobController : Controller
     [HttpPost]
     public async Task<IResult> Post([FromBody] PrintJobRequestModel printJobRequestModel)
     {
-        var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString().Replace("::ffff:", "");
+        var ipAddress = Request.GetRemoteIpAddress();
         if (ipAddress == null)
         {
             throw new BadHttpRequestException("Required request ip address");
