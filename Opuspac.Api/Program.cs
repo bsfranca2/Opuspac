@@ -5,6 +5,8 @@ using Opuspac.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
+
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.SetupEntityFramework();
@@ -13,8 +15,11 @@ builder.Services.AddEfRepositories();
 builder.Services.AddControllers();
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", policyBuilder =>
 {
-    // Fiz a configuracao em producao dos cors no API Gateway, por isso esta fixo
-    policyBuilder.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader();
+    var origins = builder.Configuration.GetValue<string>("Origins");
+    if (origins != null)
+    {
+        policyBuilder.WithOrigins(origins).AllowAnyMethod().AllowAnyHeader();
+    }
 }));
 
 builder.Services.AddEndpointsApiExplorer();

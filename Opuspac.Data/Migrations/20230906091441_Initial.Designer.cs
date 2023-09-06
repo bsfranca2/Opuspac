@@ -12,7 +12,7 @@ using Opuspac.Data.Repositories;
 namespace Opuspac.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230905133659_Initial")]
+    [Migration("20230906091441_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Opuspac.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
