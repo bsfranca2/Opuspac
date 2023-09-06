@@ -1,4 +1,6 @@
-﻿namespace Opuspac.Core.Models;
+﻿using Opuspac.Core.Entities;
+
+namespace Opuspac.Core.Models;
 
 public class PrintJobMessage
 {
@@ -16,10 +18,17 @@ public class PrintJobMessage
 
     public List<Medicine> Medicines { get; set; }
 
-    public class Medicine
+    public record Medicine(string Name, int Quantity, string AdministrationInstructions) {}
+}
+
+public static class PrescriptionMedicineExtension
+{
+    public static PrintJobMessage.Medicine ToPrintJobMessageMedicine(this PrescriptionMedicine prescriptionMedicine)
     {
-        public int Quantity { get; set; }
-        public string Name { get; set; }
-        public string AdministrationInstructions { get; set; }
+        var model = new PrintJobMessage.Medicine(
+            prescriptionMedicine.MedicineName,
+            prescriptionMedicine.Quantity,
+            prescriptionMedicine.AdministrationInstructions);
+        return model;
     }
 }

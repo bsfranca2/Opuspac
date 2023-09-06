@@ -12,7 +12,7 @@ using Opuspac.Data.Repositories;
 namespace Opuspac.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230906091441_Initial")]
+    [Migration("20230906111834_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -41,6 +41,55 @@ namespace Opuspac.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patient", (string)null);
+                });
+
+            modelBuilder.Entity("Opuspac.Data.Models.Prescription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AttendantId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Prescription", (string)null);
+                });
+
+            modelBuilder.Entity("Opuspac.Data.Models.PrescriptionMedicine", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AdministrationInstructions")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MedicineName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("PrescriptionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PrescriptionMedicine", (string)null);
                 });
 
             modelBuilder.Entity("Opuspac.Data.Models.PrintJob", b =>

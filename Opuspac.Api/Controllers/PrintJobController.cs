@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Opuspac.Api.Hubs;
-using Opuspac.Core.Entities;
-using Opuspac.Core.Models;
+using Opuspac.Api.Models.Request;
 using Opuspac.Core.Repositories;
+using Opuspac.Core.Services;
 
 namespace Opuspac.Api.Controllers;
 
@@ -12,20 +12,21 @@ namespace Opuspac.Api.Controllers;
 public class PrintJobController : Controller
 {
     private IHubContext<PrinterHub> _hub { get; set; }
-
-    private readonly IPrintJobRepository _printJobRepository;
-
     private readonly IPrinterAgentRepository _printerAgentRepository;
+    private readonly IPrintJobService _printJobService;
 
-    public PrintJobController(IHubContext<PrinterHub> hub, IPrintJobRepository printJobRepository, IPrinterAgentRepository printerAgentRepository)
+    public PrintJobController(
+        IHubContext<PrinterHub> hub,
+        IPrinterAgentRepository printerAgentRepository,
+        IPrintJobService printJobService)
     {
         _hub = hub;
-        _printJobRepository = printJobRepository;
         _printerAgentRepository = printerAgentRepository;
+        _printJobService = printJobService;
     }
 
     [HttpPost]
-    public async Task<IResult> Post()
+    public async Task<IResult> Post([FromBody] PrintJobRequestModel printJobRequestModel)
     {
         var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString().Replace("::ffff:", "");
         if (ipAddress == null)
@@ -33,21 +34,12 @@ public class PrintJobController : Controller
             throw new BadHttpRequestException("Required request ip address");
         }
 
-        var printJob = new PrintJob
-        {
-            Ip = ipAddress,
-            PrescriptionId = Guid.NewGuid(), // TODO: Tem que vim do req body
-            Status = Core.Enums.PrintJobStatus.Waiting
-        };
-        await _printJobRepository.CreateAsync(printJob);
+        var printJob = await _printJobService.CreateAsync(printJobRequestModel.PrescriptionId, ipAddress);
 
         var printerAgent = await _printerAgentRepository.GetByIpAsync(ipAddress);
         if (printerAgent != null && printerAgent.ClientId != null)
         {
-            var message = new PrintJobMessage
-            {
-                PrintJobId = printJob.Id
-            };
+            var message = await _printJobService.GetPrintJobMessageAsync(printJob.Id);
             await _hub.Clients.Client(printerAgent.ClientId).SendAsync("Print", message);
         }
 

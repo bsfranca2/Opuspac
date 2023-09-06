@@ -14,6 +14,8 @@ public class DatabaseContext : DbContext
     public DbSet<PrinterAgent> PrinterAgents { get; set; }
     public DbSet<PrintJob> PrintJobs { get; set; }
     public DbSet<Patient> Patients { get; set; }
+    public DbSet<Prescription> Prescriptions { get; set; }
+    public DbSet<PrescriptionMedicine> PrescriptionMedicines { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -27,14 +29,20 @@ public class DatabaseContext : DbContext
         var ePrinterAgent = builder.Entity<PrinterAgent>();
         var ePrintJob = builder.Entity<PrintJob>();
         var ePatient = builder.Entity<Patient>();
+        var ePrescription = builder.Entity<Prescription>();
+        var ePrescriptionMedicine = builder.Entity<PrescriptionMedicine>();
 
         ePrinterAgent.Property(c => c.Id).ValueGeneratedNever();
         ePrintJob.Property(c => c.Id).ValueGeneratedNever();
         ePatient.Property(c => c.Id).ValueGeneratedNever();
+        ePrescription.Property(c => c.Id).ValueGeneratedNever();
+        ePrescriptionMedicine.Property(c => c.Id).ValueGeneratedNever();
 
         ePrinterAgent.ToTable(nameof(PrinterAgent));
         ePrintJob.ToTable(nameof(PrintJob));
         ePatient.ToTable(nameof(Patient));
+        ePrescription.ToTable(nameof(Prescription));
+        ePrescriptionMedicine.ToTable(nameof(PrescriptionMedicine));
 
         ConfigureDateTimeUtcQueries(builder);
     }

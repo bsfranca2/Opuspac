@@ -6,8 +6,10 @@ namespace Opuspac.Api.Models.Request;
 public class PatientRequestModel
 {
     [Required]
-    [StringLength(50)]
     public string Name { get; set; }
+
+    [Required]
+    public string Bed { get; set; }
 
     public Patient ToPatient()
     {
@@ -17,6 +19,7 @@ public class PatientRequestModel
     public Patient ToPatient(Patient existingPatient)
     {
         existingPatient.Name = Name;
+        existingPatient.Bed = Bed;
         return existingPatient;
     }
 }

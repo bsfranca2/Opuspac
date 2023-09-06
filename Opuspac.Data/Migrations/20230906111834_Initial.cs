@@ -25,6 +25,36 @@ namespace Opuspac.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Prescription",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    PatientId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AttendantId = table.Column<string>(type: "text", nullable: false),
+                    Time = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prescription", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PrescriptionMedicine",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PrescriptionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    MedicineName = table.Column<string>(type: "text", nullable: false),
+                    AdministrationInstructions = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PrescriptionMedicine", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PrinterAgent",
                 columns: table => new
                 {
@@ -61,6 +91,12 @@ namespace Opuspac.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Patient");
+
+            migrationBuilder.DropTable(
+                name: "Prescription");
+
+            migrationBuilder.DropTable(
+                name: "PrescriptionMedicine");
 
             migrationBuilder.DropTable(
                 name: "PrinterAgent");

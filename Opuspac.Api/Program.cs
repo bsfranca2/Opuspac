@@ -29,6 +29,7 @@ builder.Services.AddSignalR();
 
 var app = builder.Build();
 
+// TODO: Deve ter algo melhor do que isso
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 if (app.Environment.IsDevelopment())

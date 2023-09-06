@@ -34,16 +34,22 @@ public class PrinterWorker
             Console.WriteLine($"Executando tarefa de impressão: {message.PrintJobId}");
 
             await connection.SendAsync("UpdatePrintJobStatus", message.PrintJobId, PrintJobStatus.Running);
-            var printSuccess = _printerClient.Print(message);
 
-            if (printSuccess == false)
+            try
+            {
+                var printSuccess = _printerClient.Print(message);
+                if (printSuccess == true)
+                {
+                    await connection.SendAsync("UpdatePrintJobStatus", message.PrintJobId, PrintJobStatus.Done); 
+                }
+                else
+                {
+                    await connection.SendAsync("UpdatePrintJobStatus", message.PrintJobId, PrintJobStatus.Error);
+                }
+            }
+            catch
             {
                 await connection.SendAsync("UpdatePrintJobStatus", message.PrintJobId, PrintJobStatus.Error);
-            }
-            else
-            {
-                await connection.SendAsync("UpdatePrintJobStatus", message.PrintJobId, PrintJobStatus.Done);
-
             }
             Console.WriteLine($"Tarefa de impressão finalizada: {message.PrintJobId}");
         });

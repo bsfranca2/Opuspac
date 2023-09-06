@@ -12,6 +12,7 @@ var connectToServerCommand = new Command("connect", "Estabelece conexão com o s
 connectToServerCommand.SetHandler(async () =>
 {
     var printerClient = new PrinterClient(settings);
+    //var printerClient = new PrinterClientInMemory();
     var printerWorker = new PrinterWorker(printerClient, settings);
     await printerWorker.Start();
 });
