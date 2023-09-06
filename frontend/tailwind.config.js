@@ -149,5 +149,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@formkit/themes/tailwindcss")],
 };

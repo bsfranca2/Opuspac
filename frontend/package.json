@@ -11,6 +11,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@formkit/icons": "^1.0.0",
+    "@formkit/pro": "^0.115.3",
+    "@formkit/themes": "^1.0.0",
+    "@formkit/vue": "^1.0.0",
     "@headlessui/vue": "^1.7.16",
     "@tanstack/vue-query": "^4.34.4",
     "@tanstack/vue-table": "^8.9.3",

@@ -13,3 +13,36 @@ export type PrinterAgent = {
   isConnected: boolean;
   lastActiveConnectionDate: string | null;
 };
+
+export type Patient = {
+  id: string;
+  name: string;
+  bed: string;
+};
+
+export type Prescription = {
+  id: string;
+  code: string;
+  attendantId: string;
+  time: string;
+  patient: {
+    name: string;
+    bed: string;
+  };
+};
+
+export type CreatePrescription = {
+  patientId: string;
+  code: string;
+  attendantId: string;
+  time: string;
+  medicines: Array<{
+    name: string;
+    quantity: number;
+    administrationInstructions: string;
+  }>;
+};
+
+export type CreatePrintJob = {
+  prescriptionId: string;
+};

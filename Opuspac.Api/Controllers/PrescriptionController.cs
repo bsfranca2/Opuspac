@@ -31,4 +31,11 @@ public class PrescriptionController : Controller
         }
         return Results.Ok(prescription);
     }
+
+    [HttpGet]
+    public async Task<IResult> Get()
+    {
+        var prescriptions = await _prescriptionRepository.SearchAsync();
+        return Results.Ok(prescriptions);
+    }
 }
