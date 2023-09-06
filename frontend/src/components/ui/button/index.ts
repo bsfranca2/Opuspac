@@ -8,20 +8,12 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary-600 text-white shadow-xs hover:bg-primary-700",
-        // destructive:
-        //   'bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm',
-        // outline:
-        //   'border-input hover:bg-accent hover:text-accent-foreground border bg-transparent shadow-sm',
-        // secondary:
-        //   'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm',
-        // ghost: 'hover:bg-accent hover:text-accent-foreground',
-        // link: 'text-primary underline-offset-4 hover:underline',
+        icon: "text-gray-600 hover:bg-gray-100",
       },
       size: {
         default: "h-10 px-4 py-2.5",
         sm: "h-9 px-3.5 py-2",
-        lg: "h-11 px-[1.125rem] py-2.5 text-md",
-        // icon: 'h-10 w-10',
+        icon: "h-10 w-10",
       },
     },
     defaultVariants: {
