@@ -5,7 +5,7 @@ namespace Opuspac.Api.Controllers;
 
 [ApiController]
 [Route("/printer-agents")]
-public class PrinterAgentController
+public class PrinterAgentController : Controller
 {
     private readonly IPrinterAgentRepository _printerAgentRepository;
 

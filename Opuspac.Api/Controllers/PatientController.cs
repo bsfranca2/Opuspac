@@ -6,7 +6,7 @@ namespace Opuspac.Api.Controllers;
 
 [ApiController]
 [Route("/patients")]
-public class PatientController
+public class PatientController : Controller
 {
     private readonly IPatientRepository _patientRepository;
 

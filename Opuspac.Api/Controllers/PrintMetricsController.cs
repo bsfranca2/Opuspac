@@ -7,7 +7,7 @@ namespace Opuspac.Api.Controllers;
 
 [ApiController]
 [Route("/printer-metrics")]
-public class PrintMetricsController
+public class PrintMetricsController : Controller
 {
     private readonly IPrinterAgentRepository _printerAgentRepository;
     private readonly IPrintJobRepository _printJobRepository;
