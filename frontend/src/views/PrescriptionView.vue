@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import IconPrinter from "~icons/op/printer";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Prescription from "@/components/Prescription.vue";
 import { getPrescriptions, postPrintJob } from "@/api";
+import { generateAvatarName } from "@/lib/avatar";
 
 const { isLoading, data: prescriptions } = useQuery({
   queryKey: ["prescriptions"],
@@ -42,7 +44,16 @@ async function print(prescriptionId: string) {
         <TableBody>
           <TableRow v-for="prescription in prescriptions" :key="prescription.id">
             <TableCell>{{ prescription.code }}</TableCell>
-            <TableCell class="font-medium text-gray-900">{{ prescription.patient.name }}</TableCell>
+            <TableCell class="inline-flex items-center gap-x-3">
+              <Avatar size="sm">
+                <AvatarImage :alt="prescription.patient.name" />
+                <AvatarFallback>{{ generateAvatarName(prescription.patient.name) }}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p class="font-medium text-gray-900">{{ prescription.patient.name }}</p>
+                <p class="text-gray-600">{{ prescription.patient.bed }}</p>
+              </div>
+            </TableCell>
             <TableCell>{{ prescription.time }}</TableCell>
             <TableCell>{{ prescription.attendantId }}</TableCell>
             <TableCell class="flex items-center justify-center gap-x-1">
