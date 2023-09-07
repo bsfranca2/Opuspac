@@ -111,7 +111,7 @@ const sidebarOpen = ref(false);
                 <AvatarImage :alt="authStore.user.name" />
                 <AvatarFallback>{{ authStore.user.avatarName }}</AvatarFallback>
               </Avatar>
-              <div class="text-sm">
+              <div class="text-ellipsis text-sm">
                 <span class="sr-only">Seu perfil</span>
                 <p class="font-semibold text-gray-700" aria-hidden="true">{{ authStore.user.name }}</p>
                 <p class="text-gray-600" aria-hidden="true">{{ authStore.user.email }}</p>
