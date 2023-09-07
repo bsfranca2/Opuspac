@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Opuspac.Api.Hubs;
 using Opuspac.Api.Models.Request;
@@ -10,6 +11,7 @@ namespace Opuspac.Api.Controllers;
 
 [ApiController]
 [Route("/print-jobs")]
+[Authorize]
 public class PrintJobController : Controller
 {
     private IHubContext<PrinterHub> _hub { get; set; }

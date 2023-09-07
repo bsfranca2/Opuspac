@@ -4,5 +4,5 @@ namespace Opuspac.Core.Repositories;
 
 public interface IPatientRepository : IRepository<Patient, Guid>
 {
-    Task<IEnumerable<Patient>> SearchAsync();
+    Task<List<Patient>> SearchAsync();
 }

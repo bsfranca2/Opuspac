@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Opuspac.Core.Repositories;
-using Opuspac.Core.Services;
-using Opuspac.Core.Services.Implementations;
 using Opuspac.Data.Repositories;
 
 
@@ -21,7 +19,6 @@ public static class EntityFrameworkServiceCollectionExtensions
         services.AddSingleton<IPatientRepository, PatientRepository>();
         services.AddSingleton<IPrescriptionRepository, PrescriptionRepository>();
         services.AddSingleton<IPrescriptionMedicineRepository, PrescriptionMedicineRepository>();
-        // TODO: Altera para um local mais adequado
-        services.AddSingleton<IPrintJobService, PrintJobService>();
+        services.AddSingleton<IUserRepository, UserRepository>();
     }
 }

@@ -23,18 +23,14 @@ public class BaseEntityFrameworkRepository
     
     public void ClearChangeTracking()
     {
-        using (var scope = ServiceScopeFactory.CreateScope())
-        {
-            var dbContext = GetDatabaseContext(scope);
-            dbContext.ChangeTracker.Clear();
-        }
+        using var scope = ServiceScopeFactory.CreateScope();
+        var dbContext = GetDatabaseContext(scope);
+        dbContext.ChangeTracker.Clear();
     }
     
     public async Task<int> GetCountFromQuery<T>(IQuery<T> query)
     {
-        using (var scope = ServiceScopeFactory.CreateScope())
-        {
-            return await query.Run(GetDatabaseContext(scope)).CountAsync();
-        }
+        using var scope = ServiceScopeFactory.CreateScope();
+        return await query.Run(GetDatabaseContext(scope)).CountAsync();
     }
 }

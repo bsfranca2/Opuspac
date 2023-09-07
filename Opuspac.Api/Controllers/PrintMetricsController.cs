@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Opuspac.Api.Models.Response;
 using Opuspac.Core.Enums;
 using Opuspac.Core.Repositories;
@@ -7,6 +8,7 @@ namespace Opuspac.Api.Controllers;
 
 [ApiController]
 [Route("/printer-metrics")]
+[Authorize]
 public class PrintMetricsController : Controller
 {
     private readonly IPrinterAgentRepository _printerAgentRepository;

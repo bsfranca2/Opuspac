@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Opuspac.Api.Models.Request;
 using Opuspac.Core.Repositories;
 
@@ -6,6 +7,7 @@ namespace Opuspac.Api.Controllers;
 
 [ApiController]
 [Route("/patients")]
+[Authorize]
 public class PatientController : Controller
 {
     private readonly IPatientRepository _patientRepository;

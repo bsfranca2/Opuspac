@@ -13,13 +13,11 @@ public class PrescriptionMedicineRepository : Repository<Core.Entities.Prescript
 
     public async Task<List<Core.Entities.PrescriptionMedicine>> GetManyByPrescriptionIdAsync(Guid prescriptionId)
     {
-        using (var scope = ServiceScopeFactory.CreateScope())
-        {
-            var dbContext = GetDatabaseContext(scope);
-            var prescriptionMedicines = await dbContext.PrescriptionMedicines
-                .Where(prescriptionMedicine => prescriptionMedicine.PrescriptionId == prescriptionId)
-                .ToListAsync();
-            return Mapper.Map<List<Core.Entities.PrescriptionMedicine>>(prescriptionMedicines);
-        }
+        using var scope = ServiceScopeFactory.CreateScope();
+        var dbContext = GetDatabaseContext(scope);
+        var prescriptionMedicines = await dbContext.PrescriptionMedicines
+            .Where(prescriptionMedicine => prescriptionMedicine.PrescriptionId == prescriptionId)
+            .ToListAsync();
+        return Mapper.Map<List<Core.Entities.PrescriptionMedicine>>(prescriptionMedicines);
     }
 }
