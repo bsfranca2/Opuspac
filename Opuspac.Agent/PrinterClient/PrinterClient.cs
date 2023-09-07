@@ -31,7 +31,7 @@ internal class PrinterClient : IPrinterClient
 
         process.WaitForExit();
 
-        Console.WriteLine("O executável da impressora foi concluído.");
-        return true;
+        Console.WriteLine($"O executável da impressora foi concluído. Exit code: {process.ExitCode}");
+        return process.ExitCode == 0;
     }
 }

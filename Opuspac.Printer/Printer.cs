@@ -45,8 +45,8 @@ namespace Opuspac.Printer
             }
             catch (PosControlException)
             {
-                // TODO: Melhorar tratamento?
                 Console.WriteLine("Erro instanciando Printer");
+                Environment.Exit(1);
             }
         }
 
