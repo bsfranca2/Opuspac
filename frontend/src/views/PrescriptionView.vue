@@ -49,7 +49,7 @@ async function print(prescriptionId: string) {
               <TooltipProvider>
                 <Tooltip :delay-duration="0">
                   <TooltipTrigger as-child>
-                    <Button variant="icon" size="icon" @click="() => print(prescription.id)">
+                    <Button variant="icon" size="icon" @click="print(prescription.id)">
                       <IconPrinter class="h-5 w-5" />
                     </Button>
                   </TooltipTrigger>

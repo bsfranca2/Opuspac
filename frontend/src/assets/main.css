@@ -28,3 +28,7 @@
     @apply h-6 w-6 shrink-0 text-gray-500;
   }
 }
+
+body[data-sign-page] button[type="submit"] {
+  width: 100% !important;
+}

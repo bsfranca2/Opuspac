@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Opuspac.Api.Models.Request;
 using Opuspac.Api.Models.Response;
+using Opuspac.Core.Entities;
 using Opuspac.Core.Services;
 
 namespace Opuspac.Api.Controllers;
 
 [ApiController]
-[Route("/auth")]
 public class AuthController : Controller
 {
     private readonly IUserService _userService;
@@ -22,7 +23,7 @@ public class AuthController : Controller
         try
         {
             var token = await _userService.GenerateSignInTokenAsync(model.Email, model.Password);
-            return Ok(token);
+            return Ok(new { token });
         } catch (Exception ex)
         {
             return BadRequest(new { message = ex.Message });
@@ -41,5 +42,19 @@ public class AuthController : Controller
         {
             return BadRequest(new { message = ex.Message });
         }
+    }
+
+    [HttpGet("/me")]
+    [Authorize]
+    public IActionResult Get()
+    {
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            Email = "some",
+            Name = "Name",
+            Password = "Password",
+        };
+        return Ok(new UserResponseModel(user));
     }
 }

@@ -1,3 +1,19 @@
+export type User = {
+  name: string;
+  email: string;
+};
+
+export type SignIn = {
+  email: string;
+  password: string;
+};
+
+export type SignUp = User & { password: string };
+
+export type Token = {
+  token: string;
+};
+
 export type PrinterMetrics = {
   printerAgentsConnected: number;
   printJobsWaiting: number;
