@@ -7,6 +7,7 @@ import IconPrinter from "~icons/op/printer";
 import IconMenu from "~icons/op/menu";
 import IconX from "~icons/op/x-close";
 import IconLogout from "~icons/op/logout";
+import IconUsers from "~icons/op/users";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -16,6 +17,7 @@ import { useAuthStore } from "@/stores";
 const authStore = useAuthStore();
 
 const navigation = [
+  { name: "Pacientes", href: "/patients", icon: IconUsers },
   { name: "Prescrições", href: "/", icon: IconPrescription },
   { name: "Impressoras", href: "/printers", icon: IconPrinter },
 ];

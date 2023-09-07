@@ -5,6 +5,18 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
+    path: "/sign-in",
+    name: "sign-in",
+    component: () => import(/* webpackChunkName: "sign-in" */ "@/views/SignInView.vue"),
+    meta: { layout: BlankLayout },
+  },
+  {
+    path: "/sign-up",
+    name: "sign-up",
+    component: () => import(/* webpackChunkName: "sign-up" */ "@/views/SignUpView.vue"),
+    meta: { layout: BlankLayout },
+  },
+  {
     path: "/",
     name: "prescriptions",
     component: () => import(/* webpackChunkName: "prescriptions" */ "@/views/PrescriptionView.vue"),
@@ -17,16 +29,10 @@ const routes = [
     meta: { layout: Layout },
   },
   {
-    path: "/sign-in",
-    name: "sign-in",
-    component: () => import(/* webpackChunkName: "sign-in" */ "@/views/SignInView.vue"),
-    meta: { layout: BlankLayout },
-  },
-  {
-    path: "/sign-up",
-    name: "sign-up",
-    component: () => import(/* webpackChunkName: "sign-up" */ "@/views/SignUpView.vue"),
-    meta: { layout: BlankLayout },
+    path: "/patients",
+    name: "patients",
+    component: () => import(/* webpackChunkName: "patients" */ "@/views/PatientView.vue"),
+    meta: { layout: Layout },
   },
 ];
 

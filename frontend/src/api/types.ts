@@ -36,6 +36,11 @@ export type Patient = {
   bed: string;
 };
 
+export type CreatePatient = {
+  name: string;
+  bed: string;
+};
+
 export type Prescription = {
   id: string;
   code: string;

@@ -10,6 +10,7 @@ import type {
   SignUp,
   User,
   Token,
+  CreatePatient,
 } from "./types";
 import { useAuthStore } from "@/stores";
 
@@ -47,6 +48,8 @@ export const getPrinterMetrics = () => api.get<PrinterMetrics>("/printer-metrics
 export const getPrinterAgents = () => api.get<PrinterAgent[]>("/printer-agents").then((res) => res.data);
 
 export const getPatients = () => api.get<Patient[]>("/patients").then((res) => res.data);
+
+export const postPatients = (data: CreatePatient) => api.post("/patients", data).then((res) => res.data);
 
 export const getPrescriptions = () => api.get<Prescription[]>("/prescriptions").then((res) => res.data);
 
