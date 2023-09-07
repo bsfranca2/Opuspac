@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Opuspac.Api.Models.Request;
 using Opuspac.Api.Models.Response;
-using Opuspac.Core.Entities;
+using Opuspac.Core.Repositories;
 using Opuspac.Core.Services;
+using System.Security.Claims;
 
 namespace Opuspac.Api.Controllers;
 
@@ -11,10 +12,12 @@ namespace Opuspac.Api.Controllers;
 public class AuthController : Controller
 {
     private readonly IUserService _userService;
+    private readonly IUserRepository _userRepository;
 
-    public AuthController(IUserService userService)
+    public AuthController(IUserService userService, IUserRepository userRepository)
     {
         _userService = userService;
+        _userRepository = userRepository;
     }
 
     [HttpPost("/sign-in")]
@@ -46,15 +49,15 @@ public class AuthController : Controller
 
     [HttpGet("/me")]
     [Authorize]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        var user = new User
+        var userIdentity = HttpContext.User.Identity as ClaimsIdentity;
+        var claim = userIdentity?.FindFirst("userId");
+        if (claim != null)
         {
-            Id = Guid.NewGuid(),
-            Email = "some",
-            Name = "Name",
-            Password = "Password",
-        };
-        return Ok(new UserResponseModel(user));
+            var user = await _userRepository.GetByIdAsync(Guid.Parse(claim.Value));
+            return Ok(new UserResponseModel(user));
+        }
+        return NotFound();
     }
 }

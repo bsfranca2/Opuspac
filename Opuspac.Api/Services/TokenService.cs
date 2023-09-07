@@ -9,6 +9,7 @@ namespace Opuspac.Api.Services;
 
 public class TokenService : ITokenService
 {
+    // Mover para variavel de ambiente
     public static string Secret = "qwertyuiopasdfghjklzxcvbnm123456";
 
     public Task<string> GenerateToken(User user)
@@ -20,7 +21,8 @@ public class TokenService : ITokenService
             Issuer = "opuspac-api",
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim("userId", user.Id.ToString())
             }),
             Expires = DateTime.UtcNow.AddHours(4),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
