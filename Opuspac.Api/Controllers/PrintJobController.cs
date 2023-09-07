@@ -44,6 +44,9 @@ public class PrintJobController : Controller
         {
             var message = await _printJobService.GetPrintJobMessageAsync(printJob.Id);
             await _hub.Clients.Client(printerAgent.ClientId).SendAsync("Print", message);
+        } else
+        {
+            await _printJobService.UpdatePrintJobStatusAsync(printJob, Core.Enums.PrintJobStatus.Error);
         }
 
         return Results.Created($"/print-jobs/{printJob.Id}", printJob);

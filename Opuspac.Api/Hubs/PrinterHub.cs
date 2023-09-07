@@ -2,6 +2,7 @@
 using Opuspac.Core.Entities;
 using Opuspac.Core.Enums;
 using Opuspac.Core.Repositories;
+using Opuspac.Core.Services;
 
 namespace Opuspac.Api.Hubs;
 
@@ -9,13 +10,13 @@ public class PrinterHub : Hub
 {
     private ILogger<PrinterHub> _logger;
     private readonly IPrinterAgentRepository _printerAgentRepository;
-    private readonly IPrintJobRepository _printJobRepository;
+    private readonly IPrintJobService _printJobService;
 
-    public PrinterHub(ILogger<PrinterHub> logger, IPrinterAgentRepository printerAgentRepository, IPrintJobRepository printJobRepository)
+    public PrinterHub(ILogger<PrinterHub> logger, IPrinterAgentRepository printerAgentRepository, IPrintJobService printJobService)
     {
         _logger = logger;
         _printerAgentRepository = printerAgentRepository;
-        _printJobRepository = printJobRepository;
+        _printJobService = printJobService;
     }
 
     public override async Task OnConnectedAsync()
@@ -32,7 +33,6 @@ public class PrinterHub : Hub
             throw new HubException("Necessário uma conexão com o IP fornecido.");
         }
 
-        // TODO: Talvez extrair para um service
         var printerAgent = await _printerAgentRepository.GetByIpAsync(clientIpAddress);
         if (printerAgent == null)
         {
@@ -49,8 +49,6 @@ public class PrinterHub : Hub
         }
         printerAgent.Connect(Context.ConnectionId);
         await _printerAgentRepository.UpsertAsync(printerAgent);
-
-        // TODO: Buscar por tarefas pendentes para esse ip
 
         await base.OnConnectedAsync();
     }
@@ -73,14 +71,12 @@ public class PrinterHub : Hub
 
     public async Task UpdatePrintJobStatus(Guid printJobId, PrintJobStatus printJobStatus)
     {
-        var printJob = await _printJobRepository.GetByIdAsync(printJobId);
-        if (printJob == null)
+        try
+        {
+            await _printJobService.UpdatePrintJobStatusAsync(printJobId, printJobStatus);
+        } catch
         {
             _logger.LogWarning($"Trabalho de impressão não encontrado: {printJobId}");
-            return;
         }
-
-        printJob.Status = printJobStatus;
-        await _printJobRepository.ReplaceAsync(printJob);
     }
 }
