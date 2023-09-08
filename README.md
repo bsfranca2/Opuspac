@@ -1,55 +1,58 @@
 # Opuspac
+
 O Opuspac é uma aplicação que permite a impressão de prescrições médicas utilizando a impressora Epson TM-T20x. Este projeto é composto por um backend escrito em C# e um frontend em Vue.js.
+
 > Para uma resposta rápida sobre se o projeto é capaz de imprimir, você pode pular para a seção [Agente de Impressão](#agente-de-impressão). Certifique-se de atender aos [requisitos necessários](#requisitos).
 
 ## Requisitos
-API
-- [.NET 7.0 SDK](https://dotnet.microsoft.com/download)
 
- Site
-- [Node.js >=18](https://nodejs.org/en)
-
-Agente de Impressão
-- [.NET 7.0 SDK](https://dotnet.microsoft.com/download)
-- [.NET 4.8 SDK](https://dotnet.microsoft.com/download/dotnet-framework/net40)
 - [StatusAPI for EPSON Advanced Printer Driver 6](https://download.epson-biz.com/modules/pos/index.php?page=single_soft&cid=7234&scat=31&pcat=3)
 - [EPSON Advanced Printer Driver for TM-T20X](https://download.epson-biz.com/modules/pos/index.php?page=single_soft&cid=6695&scat=31&pcat=3)
-- [POS for .NET v1.14.1](https://www.microsoft.com/en-US/download/details.aspx?id=55758)
-- [EPSON OPOS ADK for .NET (for Microsoft .NET Framework 4.0 or later)](https://download.epson-biz.com/modules/pos/index.php?page=single_soft&cid=7289&scat=39&pcat=3)
+- [TM Virtual Port Driver](https://download.epson-biz.com/modules/pos/index.php?page=single_soft&cid=6919&scat=36&pcat=3)
 
-## Estrutura 
+## Estrutura
+
 ![Fluxo do projeto](/docs/diagram.png)
-- **Site:** Este é o painel administrativo do sistema.
-- **Servidor:**  Executa as regras de negócios e expõe uma API REST.
-- **Agente de Impressão:** Este programa é responsável por efetuar a impressão e se comunica com o servidor por meio de websocket. 
 
-## Executando local
-### Servidor e Site (Em andamento)
-- Executar o servidor 
-- Compilar o frontend
+- **Site:** Este é o painel administrativo do sistema.
+- **Servidor:** Executa as regras de negócios e expõe uma API REST.
+- **Agente de Impressão:** Este programa é responsável por efetuar a impressão e se comunica com o servidor por meio de websocket.
+
+## Executando
+
+### .NET
+
+Você pode acessar a versão do agente em .NET em [/docs/local.md](/docs/local.md)
+
+> Observação: Você pode conferir a versão anterior do README.md na tag [v0.1](https://github.com/bsfranca2/Opuspac/tree/v0.1)
+
+### Site e Servidor
+
+- **Website:** [https://opuspac.vercel.app](https://opuspac.vercel.app)
+- **Api:** [https://vmiho9xjf9.execute-api.us-east-2.amazonaws.com/prod/](https://vmiho9xjf9.execute-api.us-east-2.amazonaws.com/prod/)
 
 ### Agente de Impressão
-Antes de executar o Agente de Impressão, é necessário fazer duas configurações:
+
+Antes de executar o Agente de Impressão, é necessário fazer uma ou duas configurações:
+
 1. Configurar o driver da impressora, que pode ser encontrado no documento [APD6_Install_en_revC.pdf](/docs/APD_604_T20X_WM/APD6_Install_en_revC.pdf) que acompanha o instalador do EPSON Advanced Printer Driver for TM-T20X.
-2. Configurar a impressora que está sendo utilizada pela SDK do .NET. Isso pode ser encontrado no arquivo [InstallManual.pdf](/docs/OPOSN1.14.27/InstallManual.pdf) que acompanha o EPSON OPOS ADK for .NET.
+2. Caso sua impressora esteja conectada usando a porta COM, você pode ignorar essa etapa, pois o agente atual utiliza a porta COM para enviar comandos ESC/POS. Após a instalação do TM Virtual Port Driver, abra-o, selecione COM2 e pressione "Assign Port"; por fim, selecione sua impressora.
 
-> Importante: Para evitar erros na execução, é necessário que o nome da impressora no `setupPos` seja `PosPrinter`
+> Observacao: Não é difícil disponibilizar a impressão com portas USB. No momento, o pacote do Node.js de impressoras feito pela comunidade (não é oficial) está desatualizado.
 
-O motivo de precisar de duas SDKs diferentes é porque o POS for .NET tem compatibilidade apenas com .NET 4. Portanto, o projeto está organizado da seguinte forma:
-- `./Opuspac.Agent` Projeto em .NET 7 que se comunica com o servidor. Quando recebe instruções de impressão, executa o executável em `./Opuspac.Printer`
-- `./Opuspac.Printer` Projeto em .NET 4, responsável apenas pela impressão. O executável recebe como parâmetro o local do JSON com os dados da prescrição. [Exemplo do JSON.](/example-print-data.json)
+> Observacao: É possível fazer a mesma coisa com .NET, não é necessário todas aquelas dependências. Eu vi alguns pacotes que fazem algo parecido com o agente em Node.js, mas tive problemas com a versão .NET. O pior cenário seria não encontrar nenhuma compatível e precisar criar uma biblioteca para executar comandos ESC/POS, o que não seria difícil, pois é possível utilizar até mesmo bibliotecas de outras linguagens como referência de comandos.
 
-Para verificar se a impressão está funcionando, você pode executar apenas  `./Opuspac.Printer`. Vou mostrar os comandos no terminal, mas recomendo o uso do Visual Studio.
+Para verificar se a impressão está funcionando:
 
-1. Abra o terminal na pasta do projeto.
-2. Restaure as dependências: `nuget.exe restore`
-3. Compile: `MSBuild.exe .\Opuspac.Printer\Opuspac.Printer.csproj /p:Configuration=Release`
-4. Execute: `.\Opuspac.Printer\bin\Release\Opuspac.Printer.exe .\example-print-data.json`
-5. Se todos os passos foram concluídos corretamente até aqui, a impressão será realizada. Você pode personalizar os dados da impressão editando o arquivo passado como parâmetro, neste caso, `.\example-print-data.json`
+1. Baixe o executável [aqui](https://github.com/bsfranca2/Opuspac/releases/download/v0.2/printer-agent.exe). O motivo de ter 48MB é porque já vem com o Node.js embutido.
+2. Com o terminal aberto no mesmo local do executável, execute`.\printer-agent.exe`,
+3. Se estiver funcionando corretamente, ele listará as opções disponíveis do programa.
 
-Agora, para executar o `./Opuspac.Agent` e conectá-lo ao servidor:
-1. Atualize o arquivo `./Opuspac.Agent/serversettings.json` com o local do compilado do `./Opuspac.Printer` que executamos anteriormente 
-1. Abra o terminal na pasta do projeto.
-2. Restaure as dependências: `dotnet restore`
-3. Compile: `dotnet publish .\Opuspac.Agent\ --configuration Release`
-4. Execute: `.\Opuspac.Agent\bin\Release\net7.0\Opuspac.Agent.exe connect`. Isso manterá uma conexão ativa com o servidor.
+O programa tem dois comandos
+
+1. `.\printer-agent.exe print <arquivo>` Caminho do arquivo JSON com os dados da prescrição. [JSON de exemplo](/example-print-data.json)
+2. `.\printer-agent.exe connect` Comando para se conectar ao servidor e escutar por tarefas de impressão.
+
+### Bugs
+
+Quando é realizada a tarefa de imprimir e a impressora não está conectada, está aparecendo a mensagem de sucesso, mesmo sendo o inverso.
