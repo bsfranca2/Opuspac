@@ -38,9 +38,11 @@ Antes de executar o Agente de Impressão, é necessário fazer uma ou duas confi
 1. Configurar o driver da impressora, que pode ser encontrado no documento [APD6_Install_en_revC.pdf](/docs/APD_604_T20X_WM/APD6_Install_en_revC.pdf) que acompanha o instalador do EPSON Advanced Printer Driver for TM-T20X.
 2. Caso sua impressora esteja conectada usando a porta COM, você pode ignorar essa etapa, pois o agente atual utiliza a porta COM para enviar comandos ESC/POS. Após a instalação do TM Virtual Port Driver, abra-o, selecione COM2 e pressione "Assign Port"; por fim, selecione sua impressora.
 
-> Observacao: Não é difícil disponibilizar a impressão com portas USB. No momento, o pacote do Node.js de impressoras feito pela comunidade (não é oficial) está desatualizado.
+> Observação: É possível utilizar qualquer porta COM de 1 a 8, mas será necessário especificar qual porta está sendo usada como parâmetro para o executável do agente. Se utilizar COM2, não é necessário especificar para o agente.
 
-> Observacao: É possível fazer a mesma coisa com .NET, não é necessário todas aquelas dependências. Eu vi alguns pacotes que fazem algo parecido com o agente em Node.js, mas tive problemas com a versão .NET. O pior cenário seria não encontrar nenhuma compatível e precisar criar uma biblioteca para executar comandos ESC/POS, o que não seria difícil, pois é possível utilizar até mesmo bibliotecas de outras linguagens como referência de comandos.
+> Observação: Não é difícil disponibilizar a impressão com portas USB. No momento, o pacote do Node.js de impressoras feito pela comunidade (não é oficial) está desatualizado.
+
+> Observação: É possível fazer a mesma coisa com .NET, não é necessário todas aquelas dependências. Eu vi alguns pacotes que fazem algo parecido como o agente em Node.js, mas tive problemas com a versão .NET. O pior cenário seria não encontrar nenhuma compatível e precisar criar uma biblioteca para executar comandos ESC/POS, o que não seria difícil, pois é possível utilizar até mesmo bibliotecas de outras linguagens como referência de comandos.
 
 Para verificar se a impressão está funcionando:
 
@@ -52,6 +54,8 @@ O programa tem dois comandos
 
 1. `.\printer-agent.exe print <arquivo>` Caminho do arquivo JSON com os dados da prescrição. [JSON de exemplo](/example-print-data.json)
 2. `.\printer-agent.exe connect` Comando para se conectar ao servidor e escutar por tarefas de impressão.
+
+> Para especificar qual porta COM será utilizada, passe o argumento `-i` ou `--interface`. Por exemplo, `--interface COM1`.
 
 ### Bugs
 
